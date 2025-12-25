@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Feliz Navidad!  🎄</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #1a472a 0%, #2d5016 50%, #8b0000 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Nieve cayendo */
+        .snowflake {
+            position: fixed;
+            top: -10px;
+            color: white;
+            font-size: 1em;
+            opacity: 0.8;
+            animation: fall linear infinite;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        /* Luces navideñas */
+        .christmas-lights {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .light {
+            width: 15px;
+            height: 20px;
+            border-radius: 50%;
+            animation: blink 1s infinite;
+        }
+
+        . light:nth-child(1) { background: #ff0000; animation-delay: 0s; }
+        .light:nth-child(2) { background: #00ff00; animation-delay: 0.2s; }
+        .light:nth-child(3) { background: #0000ff; animation-delay: 0.4s; }
+        .light:nth-child(4) { background: #ffff00; animation-delay: 0.6s; }
+        . light:nth-child(5) { background: #ff00ff; animation-delay: 0.8s; }
+        .light:nth-child(6) { background: #00ffff; animation-delay: 1s; }
+
+        @keyframes blink {
+            0%, 100% {
+                opacity: 1;
+                box-shadow: 0 0 20px currentColor;
+            }
+            50% {
+                opacity: 0. 3;
+                box-shadow: 0 0 5px currentColor;
+            }
+        }
+
+        /* Contenedor principal */
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            width: 100%;
+        }
+
+        /* Tarjeta principal */
+        .card {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 30px;
+            padding: 60px 50px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+            position: relative;
+            animation: cardEntrance 1. 2s ease-out;
+            backdrop-filter: blur(10px);
+            border: 5px solid #d4af37;
+        }
+
+        @keyframes cardEntrance {
+            from {
+                opacity: 0;
+                transform:  scale(0.8) rotateY(-20deg);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) rotateY(0deg);
+            }
+        }
+
+        /* Árbol de Navidad decorativo superior */
+        .tree-top {
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 60px;
+            animation: treeGlow 2s infinite;
+            filter: drop-shadow(0 0 20px #00ff00);
+        }
+
+        @keyframes treeGlow {
+            0%, 100% {
+                transform: translateX(-50%) scale(1);
+                filter: drop-shadow(0 0 20px #00ff00);
+            }
+            50% {
+                transform: translateX(-50%) scale(1.1);
+                filter: drop-shadow(0 0 40px #ffff00);
+            }
+        }
+
+        /* Título principal */
+        h1 {
+            text-align: center;
+            color: #c41e3a;
+            font-size: 3em;
+            margin-bottom:  30px;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+            animation: titleShine 3s infinite;
+        }
+
+        @keyframes titleShine {
+            0%, 100% {
+                text-shadow: 3px 3px 6px rgba(196, 30, 58, 0.5);
+            }
+            50% {
+                text-shadow: 0 0 30px #ffd700,
+                             0 0 40px #ffd700,
+                             3px 3px 6px rgba(196, 30, 58, 0.8);
+            }
+        }
+
+        /* Contenido del mensaje */
+        .message-content {
+            font-size: 1.3em;
+            line-height:  1.9;
+            color: #333;
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeIn 2s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        . message-content p {
+            margin-bottom: 25px;
+        }
+
+        .highlight {
+            color: #c41e3a;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        /* Decoraciones navideñas */
+        .decoration {
+            position: absolute;
+            font-size: 40px;
+            animation: rotate 8s infinite linear;
+        }
+
+        . dec-1 { top: 30px; left: 30px; }
+        .dec-2 { top: 30px; right: 30px; animation-direction: reverse; }
+        .dec-3 { bottom: 30px; left: 30px; animation-delay: -4s; }
+        .dec-4 { bottom: 30px; right: 30px; animation-direction: reverse; animation-delay: -4s; }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Regalos decorativos */
+        .gifts-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin:  40px 0;
+            flex-wrap: wrap;
+        }
+
+        .gift {
+            font-size: 50px;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .gift:hover {
+            transform: scale(1.3) rotate(10deg);
+        }
+
+        . gift: nth-child(2) { animation-delay: 0.3s; }
+        .gift:nth-child(3) { animation-delay: 0.6s; }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        /* Firma */
+        .signature {
+            text-align: center;
+            font-size: 1.8em;
+            color: #c41e3a;
+            font-weight: bold;
+            margin-top: 40px;
+            animation: signatureAppear 3s ease-out;
+        }
+
+        @keyframes signatureAppear {
+            0% {
+                opacity: 0;
+                transform:  scale(0.5);
+            }
+            60% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Botón interactivo */
+        .festive-btn {
+            display: block;
+            margin: 30px auto 0;
+            padding: 18px 45px;
+            background: linear-gradient(135deg, #c41e3a 0%, #165b33 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.3em;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            font-weight: bold;
+            border: 3px solid #ffd700;
+        }
+
+        .festive-btn:hover {
+            transform: translateY(-5px) scale(1.08);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(135deg, #165b33 0%, #c41e3a 100%);
+        }
+
+        /* Estrellas brillantes */
+        .star {
+            position: absolute;
+            font-size: 25px;
+            animation: starTwinkle 1. 5s infinite;
+        }
+
+        @keyframes starTwinkle {
+            0%, 100% {
+                opacity: 0.3;
+                transform: scale(0.8);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+
+        /* Confeti navideño */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            animation: confettiFall 4s linear;
+        }
+
+        @keyframes confettiFall {
+            to {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Overlay para cerrar el popup */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+            display: none;
+            animation: fadeInOverlay 0.3s forwards;
+            cursor: pointer;
+        }
+
+        @keyframes fadeInOverlay {
+            from {
+                opacity:  0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Mensaje popup mejorado */
+        .popup-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: linear-gradient(135deg, #c41e3a 0%, #165b33 100%);
+            padding: 40px 30px;
+            border-radius:  25px;
+            box-shadow:  0 25px 70px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            text-align: center;
+            color: white;
+            font-size: 1.2em;
+            animation: popIn 0.6s forwards;
+            max-width: 90%;
+            width: 500px;
+            border: 5px solid #ffd700;
+            max-height: 90vh;
+            overflow-y:  auto;
+        }
+
+        . popup-message . santa-icon {
+            font-size: 4em;
+            margin-bottom:  15px;
+            animation: spin 2s linear infinite;
+            display: inline-block;
+        }
+
+        @keyframes spin {
+            from { transform: rotateY(0deg); }
+            to { transform: rotateY(360deg); }
+        }
+
+        . popup-message .title {
+            font-weight: bold;
+            margin-bottom: 20px;
+            font-size: 1.4em;
+        }
+
+        . popup-message .content {
+            font-size: 0.9em;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        . popup-message .close-btn {
+            margin-top: 20px;
+            padding: 12px 35px;
+            background: white;
+            color: #c41e3a;
+            border:  none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.9em;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .popup-message .close-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        @keyframes popIn {
+            to {
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .card {
+                padding: 40px 25px;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            .message-content {
+                font-size: 1em;
+                line-height: 1.6;
+            }
+            .tree-top {
+                font-size: 40px;
+                top: -30px;
+            }
+            .decoration {
+                font-size: 25px;
+            }
+            .dec-1 { top: 15px; left: 15px; }
+            .dec-2 { top: 15px; right: 15px; }
+            .dec-3 { bottom: 15px; left:  15px; }
+            . dec-4 { bottom: 15px; right: 15px; }
+            .star {
+                font-size: 18px;
+            }
+            . gift {
+                font-size:  35px;
+            }
+            . signature {
+                font-size: 1.4em;
+            }
+            .festive-btn {
+                font-size: 1.1em;
+                padding: 15px 35px;
+            }
+            .popup-message {
+                width: 85%;
+                padding: 30px 20px;
+                font-size: 1em;
+            }
+            .popup-message .santa-icon {
+                font-size: 3em;
+            }
+            .popup-message .title {
+                font-size: 1.2em;
+            }
+            . popup-message .content {
+                font-size: 0.85em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                padding: 30px 20px;
+                border:  3px solid #d4af37;
+            }
+            h1 {
+                font-size: 1.6em;
+                margin-bottom: 20px;
+            }
+            .message-content {
+                font-size:  0.9em;
+            }
+            .tree-top {
+                font-size: 35px;
+            }
+            .popup-message {
+                width: 90%;
+                padding: 25px 15px;
+                font-size: 0.9em;
+            }
+            .popup-message .santa-icon {
+                font-size: 2.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Luces navideñas -->
+    <div class="christmas-lights">
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+    </div>
+
+    <!-- Nieve cayendo (se generará con JavaScript) -->
+    <div id="snow-container"></div>
+
+    <!-- Contenedor principal -->
+    <div class="container">
+        <div class="card">
+            <!-- Árbol decorativo superior -->
+            <div class="tree-top">🎄</div>
+
+            <!-- Decoraciones en las esquinas -->
+            <div class="decoration dec-1">🎅</div>
+            <div class="decoration dec-2">⛄</div>
+            <div class="decoration dec-3">🔔</div>
+            <div class="decoration dec-4">🎁</div>
+
+            <!-- Estrellas decorativas -->
+            <div class="star" style="top: 15%; left: 15%; animation-delay: 0s;">⭐</div>
+            <div class="star" style="top: 20%; right: 20%; animation-delay: 0.5s;">✨</div>
+            <div class="star" style="bottom:  25%; left: 10%; animation-delay: 1s;">⭐</div>
+            <div class="star" style="bottom: 20%; right: 15%; animation-delay: 1.5s;">✨</div>
+
+            <!-- Título -->
+            <h1>¡Feliz Navidad!  🎄✨</h1>
+
+            <!-- Mensaje -->
+            <div class="message-content">
+                <p>
+                    En esta época tan especial, quiero tomarme un momento para 
+                    <span class="highlight">agradecer a todos mis amigos y amigas</span> 
+                    por ser parte de mi vida. 🙏💖
+                </p>
+                <p>
+                    Gracias por cada sonrisa compartida, por los momentos inolvidables, 
+                    por su apoyo incondicional y por hacer de cada día algo especial. 
+                    <span class="highlight">Ustedes son mi familia elegida</span> y me siento 
+                    muy afortunado de tenerlos.  🤗✨
+                </p>
+                <p>
+                    Que esta Navidad les traiga mucha alegría, paz y amor.  
+                    Que todos sus sueños se hagan realidad y que el próximo año 
+                    esté lleno de <span class="highlight">bendiciones, éxitos y nuevas aventuras</span>. 🎆🌟
+                </p>
+                <p style="font-size: 1.2em; color: #165b33; font-weight: bold;">
+                    ¡Los quiero mucho y les deseo una Navidad mágica! 🎄❤️
+                </p>
+            </div>
+
+            <!-- Regalos decorativos -->
+            <div class="gifts-container">
+                <div class="gift">🎁</div>
+                <div class="gift">🎀</div>
+                <div class="gift">🎁</div>
+            </div>
+
+            <!-- Firma -->
+            <div class="signature">
+                Con cariño,<br>
+                Alexander 🎅💫
+            </div>
+
+            <!-- Botón interactivo -->
+            <button class="festive-btn" onclick="celebrar()">
+                🎉 ¡Celebremos juntos! 🎉
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Crear copos de nieve
+        function createSnowflake() {
+            const snowContainer = document.getElementById('snow-container');
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            snowflake.innerHTML = ['❄️', '❅', '❆'][Math.floor(Math.random() * 3)];
+            snowflake.style.left = Math.random() * 100 + '%';
+            snowflake. style.animationDuration = (Math.random() * 3 + 3) + 's';
+            snowflake.style.fontSize = (Math.random() * 1 + 0.5) + 'em';
+            snowflake.style.opacity = Math.random() * 0.7 + 0.3;
+            snowContainer.appendChild(snowflake);
+
+            setTimeout(() => {
+                snowflake.remove();
+            }, 6000);
+        }
+
+        // Generar nieve continuamente
+        setInterval(createSnowflake, 200);
+
+        // Función de celebración
+        function celebrar() {
+            // Crear confeti navideño
+            const colors = ['#ff0000', '#00ff00', '#ffd700', '#ffffff', '#c41e3a', '#165b33'];
+            const symbols = ['🎄', '⭐', '🎁', '❄️', '🔔', '✨', '🎅', '⛄'];
+            
+            for (let i = 0; i < 150; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.classList.add('confetti');
+                    confetti.style.left = Math. random() * 100 + '%';
+                    confetti.style.top = '-20px';
+                    
+                    // Mezclar colores y símbolos
+                    if (Math.random() > 0.5) {
+                        confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    } else {
+                        confetti.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
+                        confetti.style.fontSize = '20px';
+                        confetti.style.background = 'transparent';
+                    }
+                    
+                    confetti.style. animationDelay = Math.random() * 0.5 + 's';
+                    confetti.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                    document.body.appendChild(confetti);
+
+                    setTimeout(() => confetti.remove(), 5000);
+                }, i * 20);
+            }
+
+            // Mostrar mensaje especial
+            mostrarMensajeNavideño();
+        }
+
+        function mostrarMensajeNavideño() {
+            // Crear overlay
+            const overlay = document.createElement('div');
+            overlay.classList. add('popup-overlay');
+            overlay.id = 'popup-overlay';
+            overlay.style.display = 'block';
+            document.body.appendChild(overlay);
+
+            // Crear mensaje popup
+            const mensaje = document.createElement('div');
+            mensaje.classList.add('popup-message');
+            mensaje.id = 'popup-message';
+            mensaje.innerHTML = `
+                <div class="santa-icon">🎅</div>
+                <div class="title">¡Ho Ho Ho!  🎄✨</div>
+                <div class="content">
+                    Que la magia de la Navidad llene sus corazones de alegría,<br>
+                    sus hogares de paz y sus vidas de amor. 💖<br>
+                    <br>
+                    ¡Gracias por ser parte de mi vida!  🙏<br>
+                    <span style="font-size: 1.3em; font-weight: bold;">¡FELIZ NAVIDAD! 🎊🎉</span>
+                </div>
+                <button class="close-btn" onclick="cerrarPopup()">
+                    Cerrar 🎁
+                </button>
+            `;
+            document.body.appendChild(mensaje);
+
+            // Cerrar al hacer clic en el overlay
+            overlay.addEventListener('click', cerrarPopup);
+
+            // Prevenir que el clic en el mensaje cierre el popup
+            mensaje.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+
+            // Sonido de campanas (simulado con vibración en móviles)
+            if (navigator.vibrate) {
+                navigator.vibrate([200, 100, 200, 100, 200]);
+            }
+        }
+
+        function cerrarPopup() {
+            const overlay = document.getElementById('popup-overlay');
+            const mensaje = document.getElementById('popup-message');
+            
+            if (overlay) {
+                overlay.remove();
+            }
+            if (mensaje) {
+                mensaje. remove();
+            }
+        }
+
+        // Mensaje especial en la consola
+        console.log('%c🎄 ¡FELIZ NAVIDAD! 🎄', 'color: #c41e3a; font-size: 30px; font-weight: bold; text-shadow: 2px 2px 4px #165b33;');
+        console.log('%c✨ Que tengan una Navidad llena de amor y alegría ✨', 'color: #165b33; font-size: 16px;');
+
+        // Efecto de luces parpadeantes en el fondo
+        setInterval(() => {
+            document.body.style.background = `linear-gradient(135deg, 
+                #${Math.random() > 0.5 ? '1a472a' : '2d5016'} 0%, 
+                #2d5016 50%, 
+                #${Math.random() > 0.5 ? '8b0000' : 'a00000'} 100%)`;
+        }, 2000);
+    </script>
+</body>
+</html>
